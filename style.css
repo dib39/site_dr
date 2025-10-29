@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.forest {
+    position: relative;
+  width: 100%;
+  height: 100%;
+  background: url("hole.png") center center / cover no-repeat;
+  overflow: hidden;
+  transform-origin: center center; /* теперь масштаб идёт к центру */
+}
+
+/* Прозрачная зона — место норы */
+.hole-hitbox {
+  position: absolute;
+  top: 43%;        /* подбери по своему изображению */
+  left: 48%;
+  transform: translate(-50%, 0);
+  width: 27vw;
+  height: 27vh;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Эффект слабого свечения при наведении */
+.light-effect {
+  position: absolute;
+  top: 43%;
+  left: 48%;
+  transform: translate(-50%, 0);
+  width: 27vw;
+  height: 27vh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(100,100,100,0.25) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease, transform 1.5s ease;
+  z-index: 1;
+}
+
+.hole-hitbox:hover ~ .light-effect {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1.1);
+}
+
+/* Эффект затемнения при падении */
+.fall-overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.5s ease;
+  z-index: 10;
+}
+
+.fall-overlay.active {
+  opacity: 1;
+}
